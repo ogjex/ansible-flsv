@@ -1,5 +1,6 @@
 - name: update rc files on all servers
-  hosts: all
+  become: true
+  hosts: vms
   tasks:
     - name: update .inputrc file from github (raw)
       get_url:
@@ -16,4 +17,12 @@
         url: https://raw.githubusercontent.com/ogjex/server-rc/refs/heads/main/.bashrc
         dest: ~/
         mode: '0644'
-
+    - name: Copy .inputrc to truenas server
+      copy:
+        src: ~/.inputrc
+        dest: ~/
+        mode: '0644'
+    - name: Transfer server rc files using scp
+      raw: scp -o StrictHostKeyChecking=no ~/.inputrc user@{{ inventory_hostname }}:/remote/path/
+      raw: scp -o StrictHostKeyChecking=no ~/.bash_profile user@{{ inventory_hostname }}:/remote/path/
+      raw: scp -o StrictHostKeyChecking=no ~/.bashrc user@{{ inventory_hostname }}:/remote/path/

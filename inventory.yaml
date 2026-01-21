@@ -6,7 +6,9 @@ all:
       ansible_host: 192.168.1.120
     syncthing:
       ansible_host: 192.168.1.203
-
+    vars:
+      user: jex
+ 
 vms:
   hosts:
     syncthing:
