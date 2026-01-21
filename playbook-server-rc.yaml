@@ -1,0 +1,9 @@
+- name: update rc files on all servers
+  hosts: all_servers
+  tasks:
+    - name: ping my hosts (not yet pull all files from github)
+      ansible.builtin.ping:
+
+    - name: print message
+      ansible.builtin.debug:
+        msg: Hello World!
