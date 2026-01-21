@@ -1,9 +1,19 @@
 - name: update rc files on all servers
-  hosts: all_servers
+  hosts: vms
   tasks:
-    - name: ping my hosts (not yet pull all files from github)
-      ansible.builtin.ping:
+    - name: update .inputrc file from github (raw)
+      get_url:
+        url: https://raw.githubusercontent.com/ogjex/server-rc/refs/heads/main/.inputrc
+        dest: ~/
+        mode: '0644'
+    - name: update .bash_profile file from github (raw)
+      get_url:
+        url: https://raw.githubusercontent.com/ogjex/server-rc/refs/heads/main/.bash_profile
+        dest: ~/
+        mode: '0644'
+    - name: update .bashrc file from github (raw)
+      get_url:
+        url: https://raw.githubusercontent.com/ogjex/server-rc/refs/heads/main/.bashrc
+        dest: ~/
+        mode: '0644'
 
-    - name: print message
-      ansible.builtin.debug:
-        msg: Hello World!
