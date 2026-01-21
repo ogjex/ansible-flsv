@@ -1,5 +1,5 @@
 - name: update rc files on all servers
-  hosts: vms
+  hosts: all
   tasks:
     - name: update .inputrc file from github (raw)
       get_url:
