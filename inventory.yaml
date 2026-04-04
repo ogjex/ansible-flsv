@@ -1,17 +1,47 @@
 all:
-  hosts:
-    pve:
-      ansible_host: 192.168.1.220
-    nas:
-      ansible_host: 192.168.1.120
-    syncthing:
-      ansible_host: 192.168.1.203
-    vars:
-      user: jex
+  vars:
+    pve_server_ip: "192.168.1.220"
+    nas_server_ip: "192.168.1.120"
+    syncthing_server_ip: "192.168.1.203"
+    k3s_server_alpha_node_ip: "192.168.1.100"
+    k3s_worker_alpha_node_ip: "192.168.1.103"
+    k3s_worker_beta_node_ip: "192.168.1.104"
+    k3s_worker_charlie_node_ip: "192.168.1.105"
+    user: "jex"
  
-vms:
-  hosts:
-    syncthing:
-      ansible_host: 192.168.1.203
+  children:
+    metal_servers:
+      hosts:
+        pve:
+          ansible_host: "{{ pve_server_ip }}"
+    vms:
+      hosts:
+        nas:
+          ansible_host: "{{ nas_server_ip }}"
+        syncthing:
+          ansible_host: "{{ syncthing_server_ip }}"
+    k3s_servers:
+      hosts:
+        k3s_server_alpha:
+          ansible_host: "{{ k3s_server_alpha_node_ip }}"
+    k3s_workers:
+      hosts:
+        k3s_worker_alpha:
+          ansible_host: "{{ k3s_worker_alpha_node_ip }}"
+        k3s_worker_beta:
+          ansible_host:  "{{ k3s_worker_beta_node_ip }}"
+        k3s_worker_charlie:
+         ansible_host: "{{ k3s_worker_charlie_node_ip }}"
+    k3s_nodes:
+      children:
+        k3s_servers:
+        k3s_workers:
+    all_servers:
+      children:
+        k3s_nodes:
+        vms:
+        metal_servers:
+        
+
 
 
