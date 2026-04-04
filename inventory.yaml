@@ -26,8 +26,6 @@ all_servers:
           ansible_host: "{{ k3s_server_alpha_node_ip }}"
     k3s_workers:
       hosts:
-        k3s_worker_alpha:
-          ansible_host: "{{ k3s_worker_alpha_node_ip }}"
         k3s_worker_beta:
           ansible_host: "{{ k3s_worker_beta_node_ip }}"
         k3s_worker_charlie:
