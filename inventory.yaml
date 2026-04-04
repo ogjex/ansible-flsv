@@ -1,4 +1,4 @@
-all:
+all_servers:
   vars:
     pve_server_ip: "192.168.1.220"
     nas_server_ip: "192.168.1.120"
@@ -36,12 +36,4 @@ all:
       children:
         k3s_servers:
         k3s_workers:
-    all_servers:
-      children:
-        k3s_nodes:
-        vms:
-        metal_servers:
-        
-
-
 
