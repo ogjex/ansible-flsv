@@ -1,0 +1,30 @@
+---
+- name: Pull latest rc files from github repo and move file
+  hosts: all
+  vars:
+    github_repo: "https://github.com/owner/repo.git"  # Replace with your repo URL
+    repo_dir: "{{ ansible_env.HOME }}/repo"            # Directory to clone into
+    file_to_move: "file_x"                            # File to move from repo
+    dest_path: "{{ ansible_env.HOME }}/{{ file_to_move }}"  # Destination path
+
+  tasks:
+    - name: Ensure git is installed
+      ansible.builtin.apt:
+        name: git
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Clone the GitHub repository
+      ansible.builtin.git:
+        repo: "{{ github_repo }}"
+        dest: "{{ repo_dir }}"
+        version: main  # or specify a branch/tag/commit
+        force: yes     # Overwrite if repo already exists
+
+    - name: Move file to home directory (overwrite if exists)
+      ansible.builtin.copy:
+        src: "{{ repo_dir }}/{{ file_to_move }}"
+        dest: "{{ dest_path }}"
+        remote_src: yes
+        force: yes
+
