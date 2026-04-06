@@ -35,7 +35,7 @@ all:
         k3s_worker_beta_node_ip: "192.168.1.104"
         k3s_worker_charlie_node_ip: "192.168.1.105"
         ansible_user: jex
-        ansible_ssh_private_key_file: ~/.ssh/id_ed25519
+        ansible_ssh_private_key_file: ~/.ssh/ed25519
   vars:
     user: "jex"
 
