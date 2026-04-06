@@ -1,14 +1,4 @@
-all_servers:
-  vars:
-    pve_server_ip: "192.168.1.220"
-    nas_server_ip: "192.168.1.120"
-    syncthing_server_ip: "192.168.1.203"
-    k3s_server_alpha_node_ip: "192.168.1.100"
-    k3s_worker_alpha_node_ip: "192.168.1.103"
-    k3s_worker_beta_node_ip: "192.168.1.104"
-    k3s_worker_charlie_node_ip: "192.168.1.105"
-    user: "jex"
- 
+all:
   children:
     metal_servers:
       hosts:
@@ -36,3 +26,16 @@ all_servers:
       children:
         k3s_servers:
         k3s_workers:
+      vars:
+        pve_server_ip: "192.168.1.220"
+        nas_server_ip: "192.168.1.120"
+        syncthing_server_ip: "192.168.1.203"
+        k3s_server_alpha_node_ip: "192.168.1.100"
+        k3s_worker_alpha_node_ip: "192.168.1.103"
+        k3s_worker_beta_node_ip: "192.168.1.104"
+        k3s_worker_charlie_node_ip: "192.168.1.105"
+        ansible_user: jex
+        ansible_ssh_private_key_file: ~/.ssh/id_ed25519
+  vars:
+    user: "jex"
+
