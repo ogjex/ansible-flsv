@@ -1,9 +1,13 @@
 all:
    hosts:
      k3s_test_nodes:
+        k3s_worker_alpha:
           ansible_host: "{{ k3s_worker_alpha_node_ip }}"
+        k3s_worker_beta:
+          ansible_host: "{{ k3s_worker_beta_node_ip }}"
    vars:
      k3s_worker_alpha_node_ip: "192.168.1.103"
+     k3s_worker_beta_node_ip: "192.168.1.104"
      ansible_user: jex
      ansible_ssh_private_key_file: ~/.ssh/ed25519
 
