@@ -3,4 +3,4 @@
   hosts: all
   become: yes
   roles:
-    - common
+    - k3s-common
