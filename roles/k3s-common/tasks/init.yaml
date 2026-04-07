@@ -1,0 +1,9 @@
+---
+- name: Gather facts
+  import_tasks: gather_facts.yaml
+
+- name: Disable swap
+  import_tasks: disable_swap.yaml
+
+- name: Enable cgroups
+  import_tasks: enable_cgroups.yaml

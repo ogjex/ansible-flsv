@@ -1,0 +1,21 @@
+---
+- name: Gather swap status
+  command: swapon --show
+  register: swap_status
+  changed_when: false
+  ignore_errors: true
+
+- name: Turn off swap
+  command: swapoff -a
+  when: swap_status.stdout_lines | length > 0
+
+- name: Remove swap from fstab
+  lineinfile:
+    path: /etc/fstab
+    regexp: '^.*swap.*$'
+    state: absent
+
+- name: Uninstall swapfile (Debian/Raspberry Pi OS)
+  command: dphys-swapfile uninstall
+  when: ansible_facts['os_family'] == "Debian"
+  ignore_errors: true

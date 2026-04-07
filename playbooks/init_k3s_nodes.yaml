@@ -1,0 +1,6 @@
+---
+- name: Prepare nodes for k3s
+  hosts: all
+  become: yes
+  roles:
+    - common
