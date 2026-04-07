@@ -1,4 +1,4 @@
-- name: Append cgroups settings if missing
+- name: Append cgroups v1 settings if missing
   lineinfile:
     path: /boot/firmware/cmdline.txt
     line: "{{ item.line }}"
@@ -6,21 +6,9 @@
     backrefs: yes
     state: present
   loop:
-    - {
-        line: "\1 cgroup_enable=cpuset",
-        regexp: '^(.*[^ ])$',
-        check: "cgroup_enable=cpuset"
-      }
-    - {
-        line: "\1 cgroup_memory=1",
-        regexp: '^(.*[^ ])$',
-        check: "cgroup_memory=1"
-      }
-    - {
-        line: "\1 cgroup_enable=memory",
-        regexp: '^(.*[^ ])$',
-        check: "cgroup_enable=memory"
-      }
+    - { line: '\1 cgroup_enable=cpuset', regexp: '^(.*[^ ])$', check: "cgroup_enable=cpuset" }
+    - { line: '\1 cgroup_memory=1', regexp: '^(.*[^ ])$', check: "cgroup_memory=1" }
+    - { line: '\1 cgroup_enable=memory', regexp: '^(.*[^ ])$', check: "cgroup_enable=memory" }
   when:
     - ansible_architecture == "aarch64" or ansible_architecture == "armv7l"
     - not ansible_facts['cmdline']['stdout'] is search(item.check)
