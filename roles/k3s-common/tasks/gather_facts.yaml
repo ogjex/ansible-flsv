@@ -1,7 +1,8 @@
 - name: Gather current kernel command line
-  command: sudo cat /boot/firmware/cmdline.txt
+  command: cat /boot/firmware/cmdline.txt
   register: ansible_facts_cmdline
   changed_when: false
+  become: yes
 
 - name: Set cmdline fact
   set_fact:
