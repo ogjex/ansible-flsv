@@ -1,11 +1,11 @@
 all:
   children:
-    k3s_test_nodes:
+    k3s_nodes:
      hosts:
        k3s_worker_alpha:
          ansible_host: "{{ k3s_worker_alpha_node_ip }}"
-       k3s_worker_beta:
-         ansible_host: "{{ k3s_worker_beta_node_ip }}"
+#       k3s_worker_beta:
+#         ansible_host: "{{ k3s_worker_beta_node_ip }}"
        k3s_worker_charlie:
          ansible_host: "{{ k3s_worker_charlie_node_ip }}"
   vars:

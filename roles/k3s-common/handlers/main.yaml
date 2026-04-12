@@ -7,3 +7,9 @@
     pre_reboot_delay: 0
     post_reboot_delay: 30
   become: yes
+
+- name: Restart k3s
+  systemd:
+    name: k3s
+    state: restarted
+  become: yes
