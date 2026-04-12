@@ -16,5 +16,5 @@
     path: /etc/fstab
     regexp: '^.*swap.*$'
     state: absent
-    become: yes
+  become: yes
 
