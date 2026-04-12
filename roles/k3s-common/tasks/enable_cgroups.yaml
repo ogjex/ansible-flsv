@@ -7,21 +7,20 @@
 - name: Set cmdline fact
   set_fact:
     cmdline: "{{ cmdline_result.stdout }}"
-  become: false
 
 - name: Append cgroups settings if missing
   lineinfile:
     path: /boot/firmware/cmdline.txt
-    line: "{{ cmdline_result.stdout | trim }} {{ item }}"
+    line: "{{ cmdline_result.stdout | trim }} {{ item.line}}"
     regexp: '^(.*[^ ])$'
     backrefs: yes
     state: present
   become: yes
   loop:
-    - line: 'cgroup_enable=cpuset'
-    - line: 'cgroup_memory=1'
-    - line: 'cgroup_enable=memory'
+      - { line: "cgroup_enable=cpuset", check: "cgroup_enable=cpuset" }
+      - { line: "cgroup_memory=1", check: "cgroup_memory=1" }
+      - { line: "cgroup_enable=memory", check: "cgroup_enable=memory" }
   when:
     - ansible_architecture == "aarch64" or ansible_architecture == "armv7l"
-    - item not in cmdline
+    - item.check not in cmdline
   notify: Reboot node
