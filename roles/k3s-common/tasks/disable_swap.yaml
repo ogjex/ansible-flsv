@@ -1,12 +1,12 @@
 ---
 - name: Gather swap status
-  command: swapon --show
+  command: sudo swapon --show
   register: swap_status
   changed_when: false
   ignore_errors: true
 
 - name: Turn off swap
-  command: swapoff -a
+  command: sudo swapoff -a
   when: swap_status.stdout_lines | length > 0
 
 - name: Remove swap from fstab
