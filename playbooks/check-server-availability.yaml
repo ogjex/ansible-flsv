@@ -1,5 +1,5 @@
 - name: check availability on all servers
-  hosts: k3s_nodes
+  hosts: all
   tasks:
     - name: ping my hosts
       ansible.builtin.ping:
