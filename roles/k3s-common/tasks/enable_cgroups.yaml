@@ -1,13 +1,13 @@
 - name: Gather current kernel command line
   command: cat /boot/firmware/cmdline.txt
-  register: ansible_facts_cmdline
+  register: cmdline_result
   changed_when: false
   become: yes
 
 - name: Set cmdline fact
   set_fact:
-    ansible_facts:
-      cmdline: "{{ ansible_facts_cmdline }}"
+    cmdline: "{{ cmdline_result.stdout }}"
+  become: false
 
 - name: Append cgroups settings if missing
   lineinfile:
@@ -23,5 +23,5 @@
     - { line: '\1 cgroup_enable=memory', regexp: '^(.*[^ ])$', check: "cgroup_enable=memory" }
   when:
     - ansible_architecture == "aarch64" or ansible_architecture == "armv7l"
-    - item.check not in cmdline.stdout
+    - item.check not in cmdline
   notify: Reboot node
