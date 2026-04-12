@@ -15,7 +15,3 @@
     regexp: '^.*swap.*$'
     state: absent
 
-- name: Uninstall swapfile (Debian/Raspberry Pi OS)
-  command: dphys-swapfile uninstall
-  when: ansible_facts['os_family'] == "Debian"
-  ignore_errors: true

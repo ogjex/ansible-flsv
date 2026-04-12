@@ -1,4 +1,4 @@
-- name: Append cgroups v1 settings if missing
+- name: Append cgroups settings if missing
   lineinfile:
     path: /boot/firmware/cmdline.txt
     line: "{{ item.line }}"
